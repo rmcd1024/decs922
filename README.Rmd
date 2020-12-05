@@ -19,7 +19,7 @@ For example, to find the appropriate version of red:
 
 ```{r, out.width='70%'}
 library(decs922)
-colorkey('red')
+colorkey('orange')
 ```
 
 

@@ -10,7 +10,7 @@ For example, to find the appropriate version of red:
 
 ``` r
 library(decs922)
-colorkey('red')
+colorkey('orange')
 ```
 
 <img src="README_files/figure-gfm/unnamed-chunk-1-1.png" width="70%" />
