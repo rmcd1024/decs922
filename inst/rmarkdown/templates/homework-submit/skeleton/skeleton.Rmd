@@ -9,6 +9,9 @@ date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
   pdf_document:
     toc: true
+    number_sections: true
+## this allows you to customize margins in a pdf document
+geometry: 'top=1in,bottom=1in,left=1in,right=1in'
 ---
 
 Feel free to delete or change anything in this document; this is
@@ -66,4 +69,4 @@ x
 
 ## Part B
 
-# Problem No. xxx
+# Problem No. yyy
