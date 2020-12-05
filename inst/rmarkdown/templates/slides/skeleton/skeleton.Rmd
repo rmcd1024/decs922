@@ -1,0 +1,45 @@
+---
+title: "Beamer Template"
+subtitle: |
+  | DECS-922, *Data Exploration*
+  | Kellogg School of Managment
+  | Northwestern University
+author: "Prof Robert McDonald"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  beamer_presentation:
+    slide_level: 2
+    toc: true
+header-includes:
+  \setbeamertemplate{footline}{\hfill\vspace{0.05in}\insertframenumber\hspace*{0.2in}}
+  \thispagestyle{empty}
+  \addtocounter{framenumber}{-1}
+---
+
+ 
+```{r setup, message=FALSE, echo=FALSE}
+library(data.table)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+knitr::opts_chunk$set(echo = TRUE
+                      ,message=FALSE
+                      ,warning=FALSE
+                      ,error=FALSE
+                      ,comment=NA)
+
+```
+
+# Here is a section
+
+## Here is a slide title
+
+This page verifies that incremental bullets don't increase page numbers
+
+\pause
+
+* Here is a bullet item
+* Here is another
+
+\pause 
+* And another

@@ -1,0 +1,35 @@
+---
+title: "Submission: Homework No. xxx"
+subtitle: |
+  | DECS-922, *Data Exploration*
+  | Kellogg School of Managment
+  | Northwestern University
+author: "My Name"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  pdf_document:
+    toc: true
+---
+
+ 
+```{r setup, message=FALSE, echo=FALSE}
+library(data.table)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+knitr::opts_chunk$set(echo = TRUE
+                      ,collapse = TRUE
+                      ,message = FALSE
+                      ,warning = FALSE
+                      ,error = FALSE
+                      ,comment = NA)
+
+```
+
+# Problem No. xxx
+
+## Part A
+
+## Part B
+
+# Problem No. xxx
