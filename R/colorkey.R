@@ -2,8 +2,9 @@
 #'
 #' @description \code{colorkey} produces a plot showing all standard R
 #'     colornames (as returned by \code{colors}) matching a regular
-#'     expression. If output is assigned to a variable, the variable
-#'     contains the list of colors.
+#'     expression. Matching is case insensitive. If output is assigned
+#'     to a variable, the variable contains the list of colors. By
+#'     default, returns all colors.
 #'
 #' \code{colorkey(colortext)}
 #' 
@@ -11,21 +12,25 @@
 #'
 #' @importFrom grDevices colors
 #' @importFrom graphics par text
+#' @importFrom stats na.omit
 #' @return By default creates a plot and otherwise returns
 #'     nothing. Assigned output is a character vector of the matching
 #'     color names.
 #'
 #' @param colortext Regular expression to match values returned by
 #'     \code{colors()}
-#' @usage
-#' colorkey(colortext)
+#' @param excludetext Regular expression to match values to be
+#'     \emph{excluded} from the list created by filtering on
+#'     \code{colortext}. 
+#' @usage colorkey(colortext, excludetext)
 #' 
 #' @examples
 #' \dontrun{
 #'
-#' ## colors containing "red"
-#' colorkey('red')
-#'
+#' ## color names containing "red"
+#' colorkey('blue')
+#' colorkey('blue', excludetext = 'light|dark')
+#' ## color names containing "red" but  
 #' ## color names starting with "bl" or "gr"
 #' colorkey('^(gr)|^(bl)')
 #' 
@@ -36,8 +41,15 @@
 #' }
 
 #' @export
-colorkey <- function(colortext='blue') {
-    cols <- grep(colortext, grDevices::colors(), value=TRUE)
+colorkey <- function(colortext='', excludetext = '') {
+    cols <- grep(colortext, grDevices::colors(), value=TRUE,
+                 ignore.case = TRUE)
+    title_excl_str <- ''
+    if (excludetext != '') {
+        cols <- grep(excludetext, cols, invert = TRUE, value = TRUE,
+                     ignore.case = TRUE)
+        title_excl_str <- paste0('and excluding "', excludetext, '"')
+    }
     l = length(cols)
     wid = ceiling(sqrt(l))
     ht = ifelse(l <= wid*(wid-1), wid-1, wid)
@@ -45,11 +57,11 @@ colorkey <- function(colortext='blue') {
     cols <- c(cols, rep(NA, max(0, ht*wid-l)))
     size <- c(rep(10, l), rep(0, max(0, ht*wid-l)))
     par(mar = rep(2, 4))
-    title <- paste0('Colors containing the regular expression "',
-                    colortext, '"')
+    title <- paste0(l, ' colors containing "',
+                    colortext, '" ', title_excl_str)
     plot(df$x, df$y, col = cols, cex = 4, pch = 20, xaxt = "n",
          yaxt = "n", xlim = c(0.5, wid+0.5), ylim = c(-2.5, ht*(ht+1)),
          main = title)
     text(df$x, df$y - 0.25*ht,  cols)
-    return(invisible(cols))
+    return(invisible(as.vector(na.omit(cols))))
 }

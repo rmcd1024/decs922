@@ -1,25 +1,24 @@
 ---
 title: decs922
 author: Robert McDonald
-output: 
-  md_document:
-     variant: gfm
+output: github_document
 ---
 
 This is a small package for the class Data Exploration, DECS-922, at
 the [Kellogg School of
-Management](https://www.kellogg.northwestern.edu/). The packge
-currently contains templates to produce slides and homework
-assignments; upon package installation these are automatically
-available from RStudio's `rmarkdown` templates list. It also contains
-the function `colorkey`, which assists with finding an appropriate
+Management](https://www.kellogg.northwestern.edu/). The package
+currently contains 
+
+* templates to produce slides and homework assignments; upon package installation these are automatically
+available from RStudio's `rmarkdown` templates list. 
+* the function `colorkey`, which assists with finding an appropriate
 colorname as defined by R.
 
-For example, to find the appropriate version of red:
+For example, to find a version of "orange" which does not contain "red" in the color name, do this:
 
 ```{r, out.width='70%'}
 library(decs922)
-colorkey('orange')
+colorkey(colortext = 'orange', excludetext = 'red')
 ```
 
 

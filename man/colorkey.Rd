@@ -4,11 +4,15 @@
 \alias{colorkey}
 \title{colorkey}
 \usage{
-colorkey(colortext)
+colorkey(colortext, excludetext)
 }
 \arguments{
 \item{colortext}{Regular expression to match values returned by
 \code{colors()}}
+
+\item{excludetext}{Regular expression to match values to be
+\emph{excluded} from the list created by filtering on
+\code{colortext}.}
 }
 \value{
 By default creates a plot and otherwise returns
@@ -18,17 +22,19 @@ By default creates a plot and otherwise returns
 \description{
 \code{colorkey} produces a plot showing all standard R
     colornames (as returned by \code{colors}) matching a regular
-    expression. If output is assigned to a variable, the variable
-    contains the list of colors.
+    expression. Matching is case insensitive. If output is assigned
+    to a variable, the variable contains the list of colors. By
+    default, returns all colors.
 
 \code{colorkey(colortext)}
 }
 \examples{
 \dontrun{
 
-## colors containing "red"
-colorkey('red')
-
+## color names containing "red"
+colorkey('blue')
+colorkey('blue', excludetext = 'light|dark')
+## color names containing "red" but  
 ## color names starting with "bl" or "gr"
 colorkey('^(gr)|^(bl)')
 
