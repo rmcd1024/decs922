@@ -1,0 +1,61 @@
+---
+title: Tips and Tricks
+author: Robert McDonald
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  html_document:
+    toc: true
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(knitr)
+opts_chunk$set(error = TRUE)
+```
+
+
+
+# Do
+
+* Make sure that you always start R with a clean environment. 
+  * In RStudio:
+    * In "Global Options", ***uncheck*** the box reading "Restore
+    .RData into workspace at startup"
+    * Set "Save workspace to .RData on exit" to ***Never***
+  * In other editors, always answer "n" to the `Save workspace image?
+    [y/n/c]` prompt
+
+
+# Be aware!
+
+* The same function name can be provided by multiple packages. For
+  example, `dplyr` uses `filter`, which is also provided by the
+  `stats` package, and `summarize` is also provided by the `Hmisc`
+  package. If you get an incomprehensible error message associated
+  with a dplyr function name, one of the first things to try is to
+  qualify the function name. Here is an example in which the first
+  calculation fails but the second succeeds.^[It is worth noting that
+  standard practice in Python is to qualify function names so that
+  this confusion does not occur. For example you `import Pandas as
+  pd`, and then call Pandas functions with a `pd.` prefix.]
+  
+  Note that if you use the British spelling,  `summarise`, this issue
+  does not occur. (The `dplyr` package recognizes both spellings, the
+  `Hmisc` package does not.)
+  
+```{r, message=FALSE}
+library(Hmisc) ## some other package may have invoked this
+
+mtcars %>% group_by(gear) %>% 
+    summarize(N = n())
+
+mtcars %>% group_by(gear) %>% 
+    dplyr::summarize(N = n())
+
+mtcars %>% group_by(gear) %>% 
+    summarise(N = n())
+
+```
+
+
+

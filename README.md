@@ -8,16 +8,39 @@ The package currently contains
 
 -   templates to produce slides and homework assignments; upon package
     installation these are automatically available from RStudio’s
-    `rmarkdown` templates list.
+    `rmarkdown` templates list. These are a work in progress
+
 -   the function `colorkey`, which assists with finding an appropriate
-    colorname as defined by R.
+    colorname as defined by R. For example, to find a version of
+    “orange” which does not contain “red” in the color name, do this:
 
-For example, to find a version of “orange” which does not contain “red”
-in the color name, do this:
+    ``` r
+    library(decs922)
+    colorkey(colortext = 'orange', excludetext = 'red')
+    ```
 
-``` r
-library(decs922)
-colorkey(colortext = 'orange', excludetext = 'red')
-```
+    <img src="README_files/figure-gfm/unnamed-chunk-1-1.png" width="70%" />
 
-<img src="README_files/figure-gfm/unnamed-chunk-1-1.png" width="70%" />
+-   the function `data_summary`, which report for a data set the number
+    of observations, number of missing values, the class of each
+    variable, and various summary statistics. Note that there are many
+    similar functions available, such as `summary`, `psych::describe`,
+    etc. For example, using the built-in dataset `iris`:
+
+    ``` r
+    data_summary(iris)
+    ```
+
+        ##              Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+        ## N                     150         150          150         150     150
+        ## Missing                 0           0            0           0       0
+        ## Class             numeric     numeric      numeric     numeric  factor
+        ## Mean                5.843       3.057        3.758       1.199    <NA>
+        ## StdDev              0.828       0.436        1.765       0.762    <NA>
+        ## Minimum               4.3           2            1         0.1    <NA>
+        ## 5% quantile           4.6       2.345          1.3         0.2    <NA>
+        ## 25% quantile          5.1         2.8          1.6         0.3    <NA>
+        ## Median                5.8           3         4.35         1.3    <NA>
+        ## 75% quantile          6.4         3.3          5.1         1.8    <NA>
+        ## 95% quantile        7.255         3.8          6.1         2.3    <NA>
+        ## Maximum               7.9         4.4          6.9         2.5    <NA>

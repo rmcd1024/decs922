@@ -10,10 +10,18 @@ output:
   beamer_presentation:
     slide_level: 2
     toc: true
+  pdf_document:
+    toc: true
+    number_sections: true
+## Remove "##" below this line to get page numbering with Beamer
+## Put comments back for pdf output
 header-includes:
-  \setbeamertemplate{footline}{\hfill\vspace{0.05in}\insertframenumber\hspace*{0.2in}}
-  \thispagestyle{empty}
-  \addtocounter{framenumber}{-1}
+## Uncomment next line for pdf output
+##  \newcommand{\pause}{}
+## Uncomment next three lines for page numbering in Beamer only
+##  \setbeamertemplate{footline}{\hfill\vspace{0.05in}\insertframenumber\hspace*{0.2in}}
+##  \thispagestyle{empty}
+##  \addtocounter{framenumber}{-1}
 ---
 
  
@@ -21,7 +29,8 @@ header-includes:
 library(data.table)
 library(tidyverse)
 library(knitr)
-library(kableExtra)
+library(kableExtra)  ## supply `booktabs=TRUE` argument, `linesep=''` is optional
+#rkable <- function(x, ... ) kable(x, booktabs = TRUE, linesep = '', ...)
 knitr::opts_chunk$set(echo = TRUE
                       ,message=FALSE
                       ,warning=FALSE

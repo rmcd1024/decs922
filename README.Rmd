@@ -9,16 +9,26 @@ the [Kellogg School of
 Management](https://www.kellogg.northwestern.edu/). The package
 currently contains 
 
-* templates to produce slides and homework assignments; upon package installation these are automatically
-available from RStudio's `rmarkdown` templates list. 
+* templates to produce slides and homework assignments; upon package
+  installation these are automatically available from RStudio's
+  `rmarkdown` templates list. These are a work in progress
 * the function `colorkey`, which assists with finding an appropriate
-colorname as defined by R.
+  colorname as defined by R. For example, to find a version of
+  "orange" which does not contain "red" in the color name, do this:
 
-For example, to find a version of "orange" which does not contain "red" in the color name, do this:
+    ```{r, out.width='70%'}
+    library(decs922)
+    colorkey(colortext = 'orange', excludetext = 'red')
+    ```
 
-```{r, out.width='70%'}
-library(decs922)
-colorkey(colortext = 'orange', excludetext = 'red')
-```
+* the function `data_summary`, which report for a data set the number
+  of observations, number of missing values, the class of each
+  variable, and various summary statistics. Note that there are many
+  similar functions available, such as `summary`, `psych::describe`,
+  etc. For example, using the built-in dataset `iris`:
+  
+  ```{r}
+  data_summary(iris)
+  ```
 
 

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Robert McDonald" />
 
-<meta name="date" content="2020-12-13" />
+<meta name="date" content="2020-12-21" />
 
 <title>Tips and Tricks</title>
 
@@ -191,13 +191,14 @@ summary {
 
 <h1 class="title toc-ignore">Tips and Tricks</h1>
 <h4 class="author">Robert McDonald</h4>
-<h4 class="date">December 13, 2020</h4>
+<h4 class="date">December 21, 2020</h4>
 
 </div>
 
 <div id="TOC">
 <ul>
 <li><a href="#do">Do</a></li>
+<li><a href="#be-aware">Be aware!</a></li>
 </ul>
 </div>
 
@@ -214,6 +215,40 @@ summary {
 <li>In other editors, always answer “n” to the <code>Save workspace image?   [y/n/c]</code> prompt</li>
 </ul></li>
 </ul>
+</div>
+<div id="be-aware" class="section level1">
+<h1>Be aware!</h1>
+<ul>
+<li><p>The same function name can be provided by multiple packages. For example, <code>dplyr</code> uses <code>filter</code>, which is also provided by the <code>stats</code> package, and <code>summarize</code> is also provided by the <code>Hmisc</code> package. If get an incomprehensible error message associated with a dplyr function name, one of the first things to try is to qualify the function name. Here is an example in which the first calculation fails but the second succeeds.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>Note that if you use the British spelling, <code>summarise</code>, this issue does not occur. (The <code>dplyr</code> package recognizes both spellings, the <code>Hmisc</code> package does not.)</p></li>
+</ul>
+<pre class="r"><code>library(Hmisc) ## some other package may have invoked this
+
+mtcars %&gt;% group_by(gear) %&gt;% 
+    summarize(N = n())</code></pre>
+<pre><code>## Error in summarize(., N = n()): argument &quot;by&quot; is missing, with no default</code></pre>
+<pre class="r"><code>mtcars %&gt;% group_by(gear) %&gt;% 
+    dplyr::summarize(N = n())</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##    gear     N
+##   &lt;dbl&gt; &lt;int&gt;
+## 1     3    15
+## 2     4    12
+## 3     5     5</code></pre>
+<pre class="r"><code>mtcars %&gt;% group_by(gear) %&gt;% 
+    summarise(N = n())</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##    gear     N
+##   &lt;dbl&gt; &lt;int&gt;
+## 1     3    15
+## 2     4    12
+## 3     5     5</code></pre>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>It is worth noting that standard practice in Python is to qualify function names so that this confusion does not occur. For example you <code>import Pandas as pd</code>, and then call Pandas functions with a <code>pd.</code> prefix.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 
