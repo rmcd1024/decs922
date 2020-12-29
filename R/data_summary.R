@@ -31,11 +31,21 @@ num_summaries <- function(dcol, fns_to_compute,
     names(probs) <- c('Minimum', '5% quantile', '25% quantile',
                       'Median', '75% quantile', '95% quantile',
                       'Maximum')
-    if (grepl("numeric|integer", class(dcol))[1]) {
-        outf <- mapply(function(foo, ...)
-            round(foo(dcol, na.rm = TRUE), digits = numdigits),
-                       fns_to_compute, SIMPLIFY = TRUE)
+    isposix <- grepl('POSIX',  class(dcol))[1]
+    isnumeric <- grepl('numeric|integer', class(dcol))[1]
+    if (isposix | isnumeric) {
+        outf <-
+            mapply(function(foo, ...)
+                if (isposix) {
+                    foo(dcol, na.rm = TRUE)
+                } else {
+                    round(foo(dcol, na.rm = TRUE),
+                          digits = numdigits)
+                },
+                fns_to_compute, SIMPLIFY = TRUE)
         outq <- quantile(dcol, probs = probs, na.rm = TRUE)
+        ##if (isposix) outq <- as.Date(as.numeric(outq),  origin = '1970-1-1' )
+        print(outq)
         names(outq) <- names(probs)
         out <- c(outf, outq)
     } else {
@@ -52,7 +62,7 @@ data_summary <- function(d, numdigits = 3) {
                        StdDev = sd)
     N <- mapply(length, d, SIMPLIFY = TRUE)
     Missing <- mapply(function(x) sum(is.na(x)),  d)
-    Class <- mapply(function(x) class(x),  d)
+    Class <- mapply(function(x) paste(class(x), collapse = ' + '), d)
     out <- mapply(function(x) num_summaries(x, fns_to_compute, numdigits), d)
     return(as.data.frame(rbind(N, Missing, Class, out)))
 }
