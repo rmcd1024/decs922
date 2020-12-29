@@ -21,7 +21,7 @@ currently contains
     colorkey(colortext = 'orange', excludetext = 'red')
     ```
 
-* the function `data_summary`, which report for a data set the number
+* the function `data_summary`, which reports for a data set the number
   of observations, number of missing values, the class of each
   variable, and various summary statistics. Note that there are many
   similar functions available, such as `summary`, `psych::describe`,
