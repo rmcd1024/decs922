@@ -12,6 +12,7 @@ output:
     number_sections: true
 ## this allows you to customize margins in a pdf document
 geometry: 'top=1in,bottom=1in,left=1in,right=1in'
+urlcolor: 'red'
 ---
 
 Feel free to delete or change anything in this document; this is
