@@ -29,37 +29,42 @@ library(data.table)
 library(tidyverse)
 library(knitr)
 library(kableExtra)
-knitr::opts_chunk$set(echo = TRUE
-                      ,collapse = TRUE
-                      ,message = FALSE
-                      ,warning = FALSE
-                      ,error = FALSE
-                      ,comment = NA)
+knitr::opts_chunk$set(echo = TRUE     ## Show R code chunks
+                     ,collapse = TRUE ## Show code and results together
+                     ,message = FALSE ## Do not include R "messages" in the output
+                     ,warning = FALSE ## Do not include R "warnings" in the output
+                     ,error = FALSE   ## Do not include R "errors" in the output
+                     ,comment = NA)   ## Do not preface R output with anything (default is "##")
 
 ```
 
-# Problem No. xxx
+
+# Problem
 
 This is the ultimate authority on chunk options:
 https://yihui.org/knitr/options/ 
 
-This shows you the effect of the  default chunk options above:
+This shows you the effect of the default chunk options above. With
+`collapse=FALSE` the code and the output run together, and with
+`comment=NA` there is no marker in front of the output.
 
-```{r}
+```{r seq1}
 x <- 1:10
 x
 ```
 
-The following use different chunk options:
+Here we set `comment='##'`, which precedes output, and
+`collapse=FALSE`, so the code and output have different backgrounds.
 
-```{r, echo=TRUE, comment='##', collapse=FALSE}
+```{r seq2, echo=TRUE, comment='##', collapse=FALSE}
 x <- 1:10
 x
 ```
 
-Here we have `echo=FALSE`:
+Here we have the same chunk options as before, except `echo=FALSE`:
+output is shown, but the code is not shown.
 
-```{r, echo=FALSE, comment='##', collapse=FALSE}
+```{r seq_no_echo, echo=FALSE, comment='##', collapse=FALSE}
 x <- 1:10
 x
 ```
@@ -69,4 +74,4 @@ x
 
 ## Part B
 
-# Problem No. yyy
+# Problem

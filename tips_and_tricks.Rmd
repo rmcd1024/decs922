@@ -10,21 +10,54 @@ output:
 ```{r setup, echo=FALSE, message=FALSE}
 library(tidyverse)
 library(knitr)
-opts_chunk$set(error = TRUE)
+opts_chunk$set(error = TRUE
+               ,collapse = TRUE)
 ```
 
 
 
-# Do
+# Tips
 
-* Make sure that you always start R with a clean environment. 
+## Setting up your working environment
+
+* Make sure that you always start R with a clean environment
   * In RStudio:
     * In "Global Options", ***uncheck*** the box reading "Restore
     .RData into workspace at startup"
     * Set "Save workspace to .RData on exit" to ***Never***
   * In other editors, always answer "n" to the `Save workspace image?
-    [y/n/c]` prompt
+    [y/n/c]` prompt when you exit R
 
+* At least once, you should execute `options()` at the command line
+  and take the time to look at the output. This shows you various
+  options you can set globally for the current session.  Here are two
+  you might wish to change to suit your preferences:
+  * Output width: Set to 120 with `options(width=120)` (default is `r#
+    getOption("width")`)
+  * Number of digits: Set to 3 with `options(digits=3)` (default is `r#
+    getOption("digits")`)
+  * Set both at once: `options(width = 100, digits = 3)`
+  * You can save and restore a set of options:
+  ```{r}
+  options('width', 'digits')
+  saveopt <- options('width', 'digits')  ## save options
+  saveopt
+  options(width = 150, digits = 12)
+  options('width', 'digits')
+  options(saveopt)  ## restore 
+  options('width', 'digits')
+  ```
+  
+  Note that when you restart R, options return to their original defaults.
+
+## Debugging
+
+* First and most important: **read the error messages**. Even if you
+  find them confusing, they convey information about what went wrong
+  and where it occurred
+* If you can't quickly find the problem, save your documents and
+  restart R. Sometimes the problem goes away with a clear environment
+* 
 
 # Be aware!
 
@@ -34,10 +67,10 @@ opts_chunk$set(error = TRUE)
   package. If you get an incomprehensible error message associated
   with a dplyr function name, one of the first things to try is to
   qualify the function name. Here is an example in which the first
-  calculation fails but the second succeeds.^[It is worth noting that
-  standard practice in Python is to qualify function names so that
-  this confusion does not occur. For example you `import Pandas as
-  pd`, and then call Pandas functions with a `pd.` prefix.]
+  calculation fails but the second succeeds.^[Note that standard
+  practice in Python is to qualify function names so that this
+  confusion does not occur. For example you would write `import Pandas
+  as pd`, and then call Pandas functions with a `pd.` prefix.]
   
   Note that if you use the British spelling,  `summarise`, this issue
   does not occur. (The `dplyr` package recognizes both spellings, the

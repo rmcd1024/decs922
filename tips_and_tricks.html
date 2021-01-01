@@ -11,7 +11,7 @@
 
 <meta name="author" content="Robert McDonald" />
 
-<meta name="date" content="2020-12-21" />
+<meta name="date" content="2020-12-29" />
 
 <title>Tips and Tricks</title>
 
@@ -191,53 +191,105 @@ summary {
 
 <h1 class="title toc-ignore">Tips and Tricks</h1>
 <h4 class="author">Robert McDonald</h4>
-<h4 class="date">December 21, 2020</h4>
+<h4 class="date">December 29, 2020</h4>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#do">Do</a></li>
+<li><a href="#tips">Tips</a>
+<ul>
+<li><a href="#setting-up-your-working-environment">Setting up your working environment</a></li>
+<li><a href="#debugging">Debugging</a></li>
+</ul></li>
 <li><a href="#be-aware">Be aware!</a></li>
 </ul>
 </div>
 
-<div id="do" class="section level1">
-<h1>Do</h1>
+<div id="tips" class="section level1">
+<h1>Tips</h1>
+<div id="setting-up-your-working-environment" class="section level2">
+<h2>Setting up your working environment</h2>
 <ul>
-<li>Make sure that you always start R with a clean environment.
+<li>Make sure that you always start R with a clean environment
 <ul>
 <li>In RStudio:
 <ul>
 <li>In “Global Options”, <strong><em>uncheck</em></strong> the box reading “Restore .RData into workspace at startup”</li>
 <li>Set “Save workspace to .RData on exit” to <strong><em>Never</em></strong></li>
 </ul></li>
-<li>In other editors, always answer “n” to the <code>Save workspace image?   [y/n/c]</code> prompt</li>
+<li>In other editors, always answer “n” to the <code>Save workspace image?   [y/n/c]</code> prompt when you exit R</li>
 </ul></li>
+<li>At least once, you should execute <code>options()</code> at the command line and take the time to look at the output. This shows you various options you can set globally for the current session. Here are two you might wish to change to suit your preferences:
+<ul>
+<li>Output width: Set to 120 with <code>options(width=120)</code> (default is 80)</li>
+<li>Number of digits: Set to 3 with <code>options(digits=3)</code> (default is 7)</li>
+<li>Set both at once: <code>options(width = 100, digits = 3)</code></li>
+<li>You can save and restore a set of options:</li>
 </ul>
+<pre class="r"><code>options(&#39;width&#39;, &#39;digits&#39;)
+## $width
+## [1] 80
+## 
+## $digits
+## [1] 7
+saveopt &lt;- options(&#39;width&#39;, &#39;digits&#39;)  ## save options
+saveopt
+## $width
+## [1] 80
+## 
+## $digits
+## [1] 7
+options(width = 150, digits = 12)
+options(&#39;width&#39;, &#39;digits&#39;)
+## $width
+## [1] 150
+## 
+## $digits
+## [1] 12
+options(saveopt)  ## restore 
+options(&#39;width&#39;, &#39;digits&#39;)
+## $width
+## [1] 80
+## 
+## $digits
+## [1] 7</code></pre>
+Note that when you restart R, options return to their original defaults.</li>
+</ul>
+</div>
+<div id="debugging" class="section level2">
+<h2>Debugging</h2>
+<ul>
+<li>Most importantly: <strong>read the error messages</strong>. You will likely find them confusing, especially at first, but they convey information about what went wrong</li>
+<li>If you can’t quickly find the problem, save your documents and restart R. Sometimes the problem goes away with a clear environment</li>
+<li></li>
+</ul>
+</div>
 </div>
 <div id="be-aware" class="section level1">
 <h1>Be aware!</h1>
 <ul>
-<li><p>The same function name can be provided by multiple packages. For example, <code>dplyr</code> uses <code>filter</code>, which is also provided by the <code>stats</code> package, and <code>summarize</code> is also provided by the <code>Hmisc</code> package. If get an incomprehensible error message associated with a dplyr function name, one of the first things to try is to qualify the function name. Here is an example in which the first calculation fails but the second succeeds.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<li><p>The same function name can be provided by multiple packages. For example, <code>dplyr</code> uses <code>filter</code>, which is also provided by the <code>stats</code> package, and <code>summarize</code> is also provided by the <code>Hmisc</code> package. If you get an incomprehensible error message associated with a dplyr function name, one of the first things to try is to qualify the function name. Here is an example in which the first calculation fails but the second succeeds.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>Note that if you use the British spelling, <code>summarise</code>, this issue does not occur. (The <code>dplyr</code> package recognizes both spellings, the <code>Hmisc</code> package does not.)</p></li>
 </ul>
 <pre class="r"><code>library(Hmisc) ## some other package may have invoked this
 
 mtcars %&gt;% group_by(gear) %&gt;% 
-    summarize(N = n())</code></pre>
-<pre><code>## Error in summarize(., N = n()): argument &quot;by&quot; is missing, with no default</code></pre>
-<pre class="r"><code>mtcars %&gt;% group_by(gear) %&gt;% 
-    dplyr::summarize(N = n())</code></pre>
-<pre><code>## # A tibble: 3 x 2
+    summarize(N = n())
+## Error in summarize(., N = n()): argument &quot;by&quot; is missing, with no default
+
+mtcars %&gt;% group_by(gear) %&gt;% 
+    dplyr::summarize(N = n())
+## # A tibble: 3 x 2
 ##    gear     N
 ##   &lt;dbl&gt; &lt;int&gt;
 ## 1     3    15
 ## 2     4    12
-## 3     5     5</code></pre>
-<pre class="r"><code>mtcars %&gt;% group_by(gear) %&gt;% 
-    summarise(N = n())</code></pre>
-<pre><code>## # A tibble: 3 x 2
+## 3     5     5
+
+mtcars %&gt;% group_by(gear) %&gt;% 
+    summarise(N = n())
+## # A tibble: 3 x 2
 ##    gear     N
 ##   &lt;dbl&gt; &lt;int&gt;
 ## 1     3    15
@@ -247,7 +299,7 @@ mtcars %&gt;% group_by(gear) %&gt;%
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>It is worth noting that standard practice in Python is to qualify function names so that this confusion does not occur. For example you <code>import Pandas as pd</code>, and then call Pandas functions with a <code>pd.</code> prefix.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Note that standard practice in Python is to qualify function names so that this confusion does not occur. For example you would write <code>import Pandas#   as pd</code>, and then call Pandas functions with a <code>pd.</code> prefix.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
