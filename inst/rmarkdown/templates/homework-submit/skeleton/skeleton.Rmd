@@ -42,8 +42,19 @@ knitr::opts_chunk$set(echo = TRUE     ## Show R code chunks
 
 # Problem
 
+## References
+
 This is the ultimate authority on chunk options:
 https://yihui.org/knitr/options/ 
+
+To learn more about Rmarkdown, [RStudio has a
+tutorial](https://rmarkdown.rstudio.com/lesson-1.html), and the
+authors of Rmarkdown have written a book, which is [available
+online](https://bookdown.org/yihui/rmarkdown/).
+
+## Effects of chunk options
+
+### Default options in this document
 
 This shows you the effect of the default chunk options above. With
 `collapse=FALSE` the code and the output run together, and with
@@ -54,13 +65,19 @@ x <- 1:10
 x
 ```
 
-Here we set `comment='##'`, which precedes output, and
-`collapse=FALSE`, so the code and output have different backgrounds.
+### Delineate output
+
+We can override the global chunk options by specifying chunk-specific
+options. Here we set `comment='##'`, so that the string `##` precedes
+R output, and `collapse=FALSE`, so the code and output have different
+backgrounds and are further apart on the page.
 
 ```{r seq2, echo=TRUE, comment='##', collapse=FALSE}
 x <- 1:10
 x
 ```
+
+### Show only the output, without code
 
 Here we have the same chunk options as before, except `echo=FALSE`:
 output is shown, but the code is not shown.
