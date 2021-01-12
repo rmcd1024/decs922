@@ -45,7 +45,6 @@ num_summaries <- function(dcol, fns_to_compute,
                 fns_to_compute, SIMPLIFY = TRUE)
         outq <- quantile(dcol, probs = probs, na.rm = TRUE)
         ##if (isposix) outq <- as.Date(as.numeric(outq),  origin = '1970-1-1' )
-        print(outq)
         names(outq) <- names(probs)
         out <- c(outf, outq)
     } else {
