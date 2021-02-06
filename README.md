@@ -21,7 +21,7 @@ The package currently contains
 
     <img src="README_files/figure-gfm/unnamed-chunk-1-1.png" width="70%" />
 
--   the function `data_summary`, which report for a data set the number
+-   the function `data_summary`, which reports for a data set the number
     of observations, number of missing values, the class of each
     variable, and various summary statistics. Note that there are many
     similar functions available, such as `summary`, `psych::describe`,
@@ -33,6 +33,7 @@ The package currently contains
 
         ##              Sepal.Length Sepal.Width Petal.Length Petal.Width Species
         ## N                     150         150          150         150     150
+        ## Unique                 35          23           43          22       3
         ## Missing                 0           0            0           0       0
         ## Class             numeric     numeric      numeric     numeric  factor
         ## Mean                5.843       3.057        3.758       1.199    <NA>
@@ -44,3 +45,16 @@ The package currently contains
         ## 75% quantile          6.4         3.3          5.1         1.8    <NA>
         ## 95% quantile        7.255         3.8          6.1         2.3    <NA>
         ## Maximum               7.9         4.4          6.9         2.5    <NA>
+
+-   the function `translate_datestr`, which parses a string for POSIX
+    date codes and returns documentation for the codes (taken from
+    `?strftime`).
+
+    ``` r
+    translate_datestr('%Y-%M-%d')
+    ```
+
+        ##   abbrevs category                                 description
+        ## 1      %d      day Day of the month as decimal number (01-31).
+        ## 2      %M     time           Minute as decimal number (00-59).
+        ## 3      %Y     year                          Year with century.

@@ -30,5 +30,12 @@ currently contains
   ```{r}
   data_summary(iris)
   ```
+* the function `translate_datestr`, which parses a string for POSIX
+  date codes and returns documentation for the codes (taken from `?strftime`).
+  
+  ```{r}
+  translate_datestr('%Y-%M-%d')
+  ```
+
 
 
