@@ -2,6 +2,8 @@
 
 export(colorkey)
 export(data_summary)
+export(posix_dt_format)
+export(translate_datestr)
 importFrom(grDevices,colors)
 importFrom(graphics,par)
 importFrom(graphics,text)

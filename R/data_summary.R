@@ -7,7 +7,7 @@
 #'     median, and maximum.
 #'
 #' \code{data_summary(d)}
-#' 
+#'
 #' @name data_summary
 #'
 #' @importFrom stats sd quantile
@@ -18,11 +18,11 @@
 #' @param d A data frame
 #' @param numdigits number of digits for formatted output
 #' @usage data_summary(d, numdigits)
-#' 
+#'
 #' @examples
 #'
 #' data_summary(iris)
-#' 
+#'
 
 
 num_summaries <- function(dcol, fns_to_compute,
@@ -60,9 +60,10 @@ data_summary <- function(d, numdigits = 3) {
     fns_to_compute = c(Mean = mean,
                        StdDev = sd)
     N <- mapply(length, d, SIMPLIFY = TRUE)
+    Unique <- mapply(function(x) length(unique(x)), d, SIMPLIFY = TRUE)
     Missing <- mapply(function(x) sum(is.na(x)),  d)
     Class <- mapply(function(x) paste(class(x), collapse = ' + '), d)
     out <- mapply(function(x) num_summaries(x, fns_to_compute, numdigits), d)
-    return(as.data.frame(rbind(N, Missing, Class, out)))
+    return(as.data.frame(rbind(N, Unique, Missing, Class, out)))
 }
 

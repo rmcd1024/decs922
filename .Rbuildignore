@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 ^decs922\.Rproj$
 ^README.*
+^tips*
+^data/date-formatting-strings*
