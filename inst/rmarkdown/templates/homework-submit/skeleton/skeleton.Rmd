@@ -1,15 +1,35 @@
 ---
-title: "Submission: Homework No. xxx"
-subtitle: |
-  | DECS-922, *Data Exploration*
-  | Kellogg School of Managment
-  | Northwestern University
-author: "My Name"
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
   pdf_document:
-    toc: true
-    number_sections: true
+    toc: yes
+    number_sections: yes
+  html_document:
+    toc: yes
+    number_section: true
+    df_print: paged
+---
+
+```{r, include=FALSE}
+##
+## Customize this section with your name, course info, etc.
+##
+
+titlestring <- "Submission: Homework No. xxx"
+myname <- "My name"
+mydate <- format(Sys.Date(), '%B %d, %Y')
+mycourse <- "FE-316: Topics in Financial Economics"
+myschool <- "Kellogg School of Management"
+myuniversity <- "Northwestern University"
+```
+
+---
+title: "`r titlestring`"
+subtitle: |
+   | `r mycourse`
+   | `r myschool`
+   | `r myuniversity`
+author: "`r myname`"
+date: "`r mydate`"
 ## this allows you to customize margins in a pdf document
 geometry: 'top=1in,bottom=1in,left=1in,right=1in'
 urlcolor: 'red'
@@ -30,13 +50,13 @@ library(data.table)
 library(tidyverse)
 library(knitr)
 library(kableExtra)
-knitr::opts_chunk$set(echo = TRUE     ## Show R code chunks
-                     ,collapse = TRUE ## Show code and results together
-                     ,message = FALSE ## Do not include R "messages" in the output
-                     ,warning = FALSE ## Do not include R "warnings" in the output
-                     ,error = FALSE   ## Do not include R "errors" in the output
-                     ,comment = NA)   ## Do not preface R output with anything (default is "##")
-
+opts_chunk$set(echo = TRUE     ## Show R code chunks
+               ,collapse = TRUE ## Show code and results together
+               ,message = FALSE ## Do not include R "messages" in the outp  ut
+               ,warning = FALSE ## Do not include R "warnings" in the output
+               ,error = FALSE   ## Do not include R "errors" in the output
+               ,comment = NA   ## Do not preface R output with anything (default is "##")
+)
 ```
 
 
@@ -69,7 +89,7 @@ x
 
 We can override the global chunk options by specifying chunk-specific
 options. Here we set `comment='##'`, so that the string `##` precedes
-R output, and `collapse=FALSE`, so the code and output have different
+R output,^[This would have been the default had I not set `comment=NA` in the `setup` chunk above.] and `collapse=FALSE`, so the code and output have different
 backgrounds and are further apart on the page.
 
 ```{r seq2, echo=TRUE, comment='##', collapse=FALSE}
@@ -86,6 +106,8 @@ output is shown, but the code is not shown.
 x <- 1:10
 x
 ```
+
+You also include R output directly in the text, like this: `r# paste0(x, collapse=' and ')`, or using `knitr::combine_words`: `r combine_words(x)`.
 
 
 ## Part A
