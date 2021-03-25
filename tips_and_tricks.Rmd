@@ -59,13 +59,14 @@ opts_chunk$set(error = TRUE
   restart R. Sometimes the problem goes away with a clear environment
 * 
 
-# Be aware!
+# Make sure you know which function you're using
 
-* The same function name can be provided by multiple packages. For
-  example, `dplyr` uses `filter`, which is also provided by the
+* Function names are not unique. The same function name can be used in
+  multiple packages, and the functions may do very different things.
+  For example, `dplyr` uses `filter`, which is also provided by the
   `stats` package, and `summarize` is also provided by the `Hmisc`
   package. If you get an incomprehensible error message associated
-  with a dplyr function name, one of the first things to try is to
+  with a `dplyr` function name, one of the first things to try is to
   qualify the function name. Here is an example in which the first
   calculation fails but the second succeeds.^[Note that standard
   practice in Python is to qualify function names so that this
