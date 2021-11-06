@@ -22,16 +22,16 @@
 #' @param short_description boolean, whether to return short or long
 #'     code descriptions.
 #' @param datetimestr string containing codes to be matched
-#' 
+#'
 #' @examples
-#'  
+#'
 #' posix_dt_format(v=c('%B', '%m', '%Y', '%y'))
 #'
 #' ## why isn't this string working?
 #' translate_datestr(datetimestr = '%Y-%M-%d')
-#' 
-#' 
-#' 
+#'
+#'
+#'
 
 #' @export
 posix_dt_format <- function(v = NULL, short_description = TRUE) {
@@ -39,7 +39,7 @@ posix_dt_format <- function(v = NULL, short_description = TRUE) {
                  "%F", "%g", "%G", "%h", "%H", "%I", "%j", "%m", "%M",
                  "%n", "%p", "%r", "%R", "%S", "%t", "%T", "%u", "%U",
                  "%V", "%w", "%W", "%x", "%X", "%y", "%Y", "%z", "%Z")
-    
+
     category <- c("day", "day", "month", "month",
                   "date-time", "year", "day", "date", "day", "date",
                   "year", "year", "month", "time", "time", "day",
@@ -142,7 +142,7 @@ posix_dt_format <- function(v = NULL, short_description = TRUE) {
                                 "category" = category[m],
                                 "description" = tmp[m])
     }
-    return(date_help)  
+    return(date_help)
 }
 
 #' @export
@@ -158,6 +158,6 @@ translate_datestr <- function(datetimestr) {
     }
     ##print(matches )
     posix_dt_format(v = matches)
-    
+
 }
 

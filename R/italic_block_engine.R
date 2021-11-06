@@ -1,3 +1,5 @@
+#' @title knitr engine for italicizing chunk
+
 ## By sourcing this file, you can set `allitalic` as the chunk type
 ## (instead of `r`) and the text in the chunk will render in all
 ## italic.
@@ -54,8 +56,8 @@ knitr::knit_engines$set(allitalic = function(options, debug = TRUE) {
                               '\\1\\*\\2', a[options$isitem])
     ## end of bullet
     a[options$isitem] <- gsub('\\s*$', '\\*\n', a[options$isitem])
-    
-        
+
+
     numlines <- length(options$code )
     ## Handle first line
     if (!options$blank[1] & !options$isitem[1])
