@@ -66,4 +66,4 @@ knitr::knit_engines$set(allitalic = function(options, debug = TRUE) {
         if (options$blank[numlines-1])
             a[numlines] <- gsub('^\\s*', '*', a[numlines])
     }
-}
+})
