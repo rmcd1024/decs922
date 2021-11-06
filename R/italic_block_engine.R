@@ -5,6 +5,8 @@
 ## italic.
 
 ## This seems to work with bullets
+
+#' @export
 knitr::knit_engines$set(allitalic = function(options, debug = TRUE) {
     ## the source code is in options$code
     ## Still have to look for bullets and handle them as a special case.
