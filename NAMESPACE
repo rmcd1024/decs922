@@ -3,6 +3,7 @@
 export(colorkey)
 export(data_summary)
 export(posix_dt_format)
+export(soln_notes)
 export(translate_datestr)
 importFrom(grDevices,colors)
 importFrom(graphics,par)
@@ -10,4 +11,3 @@ importFrom(graphics,text)
 importFrom(stats,na.omit)
 importFrom(stats,quantile)
 importFrom(stats,sd)
-

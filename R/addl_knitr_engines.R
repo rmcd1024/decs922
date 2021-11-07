@@ -6,9 +6,12 @@
 
 ## This seems to work with bullets
 
-#' @export
-soln_notes = function(options, debug = FALSE,
-                     title = '\n ***Solution notes:*** ')
+
+.soln_notes = function(options
+                     #, debug = FALSE,
+                       #title = '\n ***Solution notes:*** ',
+                       #lines = TRUE
+                       )
 {
     ## the source code is in options$code
     ## Still have to look for bullets and handle them as a special case.
@@ -17,10 +20,16 @@ soln_notes = function(options, debug = FALSE,
     ## The group can be text or bullet
     ##
     ## Convert multi-line bullet text into one long line
+    if (is.null(options$debug)) options$debug <- FALSE
+    if (is.null(options$title)) {
+        title <- '\n ***Solution notes:*** '
+    } else title <- options$title
+    if (is.null(options$lines)) options$lines <- FALSE
+    
     charset <- "[[:alnum:][:punct:]]"
     itemstr <- "^\\s*[-\\*|0-9].?\\s+"
     tmp <- options
-    if (debug) save(tmp, file = '/tmp/Rdata.rds')
+    if (options$debug) save(tmp, file = '/tmp/Rdata.rds')
     a <- options$code
     ## identify blank and bullet lines
     options$blank <- !grepl(charset, a)
@@ -90,10 +99,14 @@ soln_notes = function(options, debug = FALSE,
         
     }
     a <- gsub('$', ' ', a)
-    if (!is.null(title))
-        a <- c(paste('--- \n', title), a, '\n\n ---')
+    linestr <- ifelse(options$lines, '***', '')
+    if (!is.null(title)) {
+        a <- c(paste(linestr, '\n', title, ' '), a, '\n\n', linestr)
+    } else {
+        a <- c(paste(linestr, '\n', ' '), a, '\n\n', linestr)
+    }
     options$code <- a
-    if (debug) save(options,  file = '/tmp/Rdata2.rds')
+    if (options$debug) save(options,  file = '/tmp/Rdata2.rds')
     options$code
 }
 
