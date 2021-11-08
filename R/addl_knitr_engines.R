@@ -1,12 +1,14 @@
 #' @title knitr engine for italicizing chunk
 
-## By sourcing this file, you can set `soln_notes` as the chunk type
-## (instead of `r`) and the text in the chunk will render in all
-## italic.
+##  Engines in this file are hidden but are automatically available
+##  when the package is loaded. See `zzz.R` for the auto-load
+##  code. The syntax for `knit_engines$set` has to match that example.
 
-## This seems to work with bullets
+## The list variable `options` contains the chunk contents (in $code) and also
+## all arguments passed in the chunk header. These are available as
+## `code$eval`, `code$echo`, etc.
 
-
+#' @export
 .soln_notes = function(options
                      #, debug = FALSE,
                        #title = '\n ***Solution notes:*** ',
@@ -20,6 +22,8 @@
     ## The group can be text or bullet
     ##
     ## Convert multi-line bullet text into one long line
+    if (!options$echo) return()  ## don't process if no output
+    
     if (is.null(options$debug)) options$debug <- FALSE
     if (is.null(options$title)) {
         title <- '\n ***Solution notes:*** '
@@ -61,15 +65,11 @@
         }
     }
 
-    ## Get rid of white space at beginning of non-item lines
-    dummy <- !options$isitem & !options$isitem2 & !options$blank
-
     ## beginning of bullet
     a[options$isitem] <- gsub(paste0('^(', itemstr, ')(', charset, ')'),
                               '\\1\\*\\2', a[options$isitem])
     ## end of bullet
     a[options$isitem] <- gsub('\\s*$', '\\*\n', a[options$isitem])
-    
     
     numlines <- length(options$code )
     ## Handle first line
@@ -81,7 +81,6 @@
         if (options$blank[numlines-1])
             a[numlines] <- gsub('^\\s*', '*', a[numlines])
     }
-
 
     ## Here: if a line is not blank and not an item and not followed
     ## by text, then we want to end it with a '*'
@@ -95,7 +94,6 @@
             if (options$blank[i-1] & !options$isitem[i])
                 a[[i]] <- paste0('*', a[[i]])
         }
-        
         
     }
     a <- gsub('$', ' ', a)

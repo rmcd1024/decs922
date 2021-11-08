@@ -6,8 +6,8 @@
 
 ## This seems to work with bullets
 
-#' @export
-soln_notes = function(options, debug = FALSE,
+
+xxsoln_notes = function(options, debug = FALSE,
                      title = '\n ***Solution notes:*** ')
 {
     ## the source code is in options$code

@@ -6,48 +6,55 @@
 #'     the POSIX date codes, returning the portion of the data frame
 #'     documenting those codes.
 #'
-
 #' @name dateformats
 #' @aliases posix_dt_format translate_datestr
 #'
-#' @return Returns a data frame with POSIX date-time codes, code
-#'     categories, and descriptions, all of which are extracted from
-#'     \code{?strftime}.
+#' @return Returns a data frame with all or a subset of POSIX
+#'     date-time codes, code categories, and descriptions, all of
+#'     which are extracted from \code{?strftime}.
 #'
 #' @usage
-#' posix_dt_format(v, short_description)
-#' translate_datestr(datetimestr)
+#'     posix_dt_format(syms, categories, description_short, return_all)
+#'     translate_datestr(datetimestr)
 #'
-#' @param v A vector of POSIX date-time codes, \code{NULL} by default
-#' @param short_description boolean, whether to return short or long
+#' @param syms A vector of POSIX date-time codes, \code{NULL} by
+#'     default
+#' @param categories posix date categories, one or more of `c('date',
+#'     'day', 'week', 'month', 'year', 'time', 'date-time',
+#'     'formatting').
+#' @param description_short boolean, whether to return short or long
 #'     code descriptions.
+#' @param return_all boolean, whether to return a data frame of all 36
+#'     date-time codes with both short and long descriptions
 #' @param datetimestr string containing codes to be matched
-#'
 #' @examples
 #'
-#' posix_dt_format(v=c('%B', '%m', '%Y', '%y'))
+#' posix_dt_format(syms=c('%B', '%m', '%Y', '%y'))
 #'
-#' ## why isn't this string working?
 #' translate_datestr(datetimestr = '%Y-%M-%d')
 #'
 #'
 #'
 
 #' @export
-posix_dt_format <- function(v = NULL, short_description = TRUE) {
-    abbrevs <- c("%a", "%A", "%b", "%B", "%c", "%C", "%d", "%D", "%e",
+posix_dt_format <- function(syms = NULL,
+                            categories = NULL,
+                            description_short = TRUE,
+                            return_all = FALSE)
+{
+d_all = data.frame(
+    abbrevs = c("%a", "%A", "%b", "%B", "%c", "%C", "%d", "%D", "%e",
                  "%F", "%g", "%G", "%h", "%H", "%I", "%j", "%m", "%M",
                  "%n", "%p", "%r", "%R", "%S", "%t", "%T", "%u", "%U",
-                 "%V", "%w", "%W", "%x", "%X", "%y", "%Y", "%z", "%Z")
-
-    category <- c("day", "day", "month", "month",
+                 "%V", "%w", "%W", "%x", "%X", "%y", "%Y", "%z", "%Z"),
+    category = c("day", "day", "month", "month",
                   "date-time", "year", "day", "date", "day", "date",
                   "year", "year", "month", "time", "time", "day",
                   "month", "time", "formatting", "time", "time",
                   "time", "time", "formatting", "time", "day", "week",
-                  "week", "day", "week", "date", "time", "year",
-                  "year", "time", "time")
-    description_short <-
+                  "week", "day", "week", "date", "time", "year", "year",
+                  "time", "time"),
+    short_description =
         c("Abbreviated weekday name in the current locale on this platform.",
       "Full weekday name in the current locale.",
       "Abbreviated month name in the current locale on this platform.",
@@ -83,9 +90,8 @@ posix_dt_format <- function(v = NULL, short_description = TRUE) {
       "Year without century (00-99).  On input, values 00 to 68 are prefixed by 20 and 69 to 99 by 19 (expect this to change at some point)`.",
       "Year with century.",
       "Signed offset in hours and minutes from UTC, so `-0800` is 8 hours behind UTC. Values up to `+1400` are accepted.",
-      "(Output only.)  Time zone abbreviation as a character string")
-
-        description_long <-
+      "(Output only.)  Time zone abbreviation as a character string"),
+        long_description =
     c("Abbreviated weekday name in the current locale on this platform.  (Also matches full name on input: in some locales there are no abbreviations of names.)",
       "Full weekday name in the current locale.  (Also matches abbreviated name on input.)",
       "Abbreviated month name in the current locale on this platform.  (Also matches full name on input: in some locales there are no abbreviations of names.)",
@@ -122,34 +128,29 @@ posix_dt_format <- function(v = NULL, short_description = TRUE) {
       "Year with century.  Note that whereas there was no zero in the original Gregorian calendar, ISO 8601:2004 defines it to be valid (interpreted as 1BC): see <URL: https://en.wikipedia.org/wiki/0_(year)>.  However, the standards also say that years before 1582 in its calendar should only be used with agreement of the parties involved. For input, only years `0:9999` are accepted.",
       "Signed offset in hours and minutes from UTC, so `-0800` is 8 hours behind UTC. Values up to `+1400` are accepted. (Standard only for output.  For input R currently supports it on all platforms.)",
       "(Output only.)  Time zone abbreviation as a character string (empty if not available).  This may not be reliable when a time zone has changed abbreviations over the years.")
+)
 
-    if(short_description) {
-        tmp <- description_short
-    } else {
-        tmp <- description_long
-    }
+rownames(d_all) <- NULL
 
-    if (length(v) == 0) {
-        ## return full data frame
-        date_help <- data.frame("abbrevs" = abbrevs,
-                                "category" = category,
-                                "description" = tmp)
-    } else {
-        ## return only matches
-        m <- which(abbrevs %in% v)
-        ## print(m)
-        date_help <- data.frame("abbrevs" = abbrevs[m],
-                                "category" = category[m],
-                                "description" = tmp[m])
-    }
-    return(date_help)
+if (return_all)  return(d_all)
+
+if (description_short) {
+  d <- d_all[-which(names(d_all)=='long_description')]
+} else {
+  d <- d_all[-which(names(d_all)=='short_description')]
+}
+symrows <- which(d$abbrevs %in% syms )
+catrows <- which(d$category %in% categories)
+dsub <- d[union(symrows, catrows), ]
+rownames(dsub) <- NULL
+return(dsub)
+
 }
 
 #' @export
 translate_datestr <- function(datetimestr) {
     ##datetimestr <- 'The date is "%Y-%M-%d"'
     out <- unlist(gregexpr('%[A-z]',  datetimestr))
-    length(out)
     matches <- vector(mode = 'character')
     for (i in 1:length(out))  {
         ##print(substr(S,  out[i],  out[i]+1 ))
@@ -157,7 +158,8 @@ translate_datestr <- function(datetimestr) {
                                      out[i],  out[i]+1 ))
     }
     ##print(matches )
-    posix_dt_format(v = matches)
-
+    out <- posix_dt_format(syms = matches)
+    rownames(out) <- NULL
+    out
 }
 

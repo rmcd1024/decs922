@@ -1,6 +1,8 @@
+todo.md
+R/italic_block_engine.R
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^decs922\.Rproj$
-^README.*
-^tips*
-^data/date-formatting-strings*
+README.Rmd
+README_files/
+tips_and_tricks.Rmd
+tips_and_tricks.html            
