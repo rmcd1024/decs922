@@ -3,6 +3,7 @@
 export(.soln_notes)
 export(colorkey)
 export(data_summary)
+export(pkglink)
 export(posix_dt_format)
 export(translate_datestr)
 importFrom(grDevices,colors)

@@ -1,7 +1,8 @@
 ---
 title: "Beamer Template"
 subtitle: |
-  | DECS-922, *Data Exploration*
+  | FINC-435, *MBAi Finance*
+#  |DECS-461, *Data Exploration*
   | Kellogg School of Managment
   | Northwestern University
 author: "Prof Robert McDonald"

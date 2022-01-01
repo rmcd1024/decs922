@@ -1,19 +1,19 @@
 #' @title knitr engine for italicizing chunk
+#' @param options This is a list returned from the chunk and contains
+#'     all chunk options (these are available as `code$eval`,
+#'     `code$echo`, etc.along with the chunk contents (in
+#'     options$code). Have to pass chunk options through this list
+#'     rather than as arguments to the function.
+#'
+#' @description Engine to put entire chunk contents (no code) in
+#'     italic. Use for problem set solutions. This engine is
+#'     automatically available when the package is loaded (see
+#'     `zzz.R`). In general the syntax for `knit_engines$set` has to
+#'     match what's in `zzz.R`
 
-##  Engines in this file are hidden but are automatically available
-##  when the package is loaded. See `zzz.R` for the auto-load
-##  code. The syntax for `knit_engines$set` has to match that example.
-
-## The list variable `options` contains the chunk contents (in $code) and also
-## all arguments passed in the chunk header. These are available as
-## `code$eval`, `code$echo`, etc.
 
 #' @export
-.soln_notes = function(options
-                     #, debug = FALSE,
-                       #title = '\n ***Solution notes:*** ',
-                       #lines = TRUE
-                       )
+.soln_notes = function(options)
 {
     ## the source code is in options$code
     ## Still have to look for bullets and handle them as a special case.
