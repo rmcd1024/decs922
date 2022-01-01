@@ -18,6 +18,7 @@ titlestring <- "Submission: Homework No. xxx"
 myname <- "My name"
 mydate <- format(Sys.Date(), '%B %d, %Y')
 mycourse <- "DECS-461: Data Exporation"
+##mycourse <- "FINC-435: MBAi Finance"
 ##mycourse <- "FE-316: Topics in Financial Economics"
 myschool <- "Kellogg School of Management"
 myuniversity <- "Northwestern University"
