@@ -1,4 +1,7 @@
 ---
+##
+## Customize this section with output formats
+##
 output:
   pdf_document:
     toc: yes
@@ -25,6 +28,9 @@ myuniversity <- "Northwestern University"
 ```
 
 ---
+##
+## This chunk produces the titlepage and doc formatting
+##
 title: "`r titlestring`"
 subtitle: |
    | `r mycourse`
