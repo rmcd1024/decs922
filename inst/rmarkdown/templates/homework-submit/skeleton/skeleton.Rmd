@@ -43,14 +43,35 @@ geometry: 'top=1in,bottom=1in,left=1in,right=1in'
 urlcolor: 'red'
 ---
 
-Feel free to delete or change anything in this document; this is
-intended to provide a starting point for homework submissions. For
-example, it sets reasonable chunk options and loads packages you are
-likely to need.
+# What is this document?
 
-Once you have customized this to your liking, you can save it in your
-own directory and then use it as a template for future homework
-assignments.
+This Rmarkdown template is intended to help you get started using
+Rmarkdown. Once you have examined it, feel free to delete or change
+anything. To assist you in getting started, it provides reasonable
+chunk options and loads packages you are likely to need. But how you
+use this is up to you.
+
+That said, to use it effectively, you should adhere to two rules:
+
+1. R code appears *inside* chunks, that is in between these marks:
+
+
+    ````markdown
+    `r ''````{r}
+    ## this will show the first six rows of mtcars
+    head(mtcars)
+    ```
+    ````
+
+    Unless you have a very specific reason, don't put anything not
+    code-related inside an R chunk. It's fine to include comments that
+    document how the code works, but this is often not necessary.
+
+1. Ordinary text appears outside those marks, and is formatted using markdown
+
+
+Once you have customized this to your liking, you can save it to  use
+as a template for future homework assignments.
 
  
 ```{r setup, message=FALSE, echo=FALSE}
@@ -60,15 +81,19 @@ library(knitr)
 library(kableExtra)
 opts_chunk$set(echo = TRUE     ## Show R code chunks
                ,collapse = TRUE ## Show code and results together
-               ,message = FALSE ## Do not include R "messages" in the outp  ut
+               ,message = FALSE ## Do not include R "messages" in the output
                ,warning = FALSE ## Do not include R "warnings" in the output
                ,error = FALSE   ## Do not include R "errors" in the output
                ,comment = NA   ## Do not preface R output with anything (default is "##")
 )
 ```
 
+Please take a moment to compare  the pdf and Rmd versions of this
+document. If you're not yet comfortable with Rmarkdown, you will
+learn a lot from this comparison. Ask if you have questions.
 
-# Problem
+
+# Getting started
 
 ## References
 
@@ -107,8 +132,14 @@ x
 
 ### Show only the output, without code
 
-Here we have the same chunk options as before, except `echo=FALSE`:
-output is shown, but the code is not shown.
+Here we have the same chunk options as before, except for
+`echo=FALSE`. In this case, you can see the output, but the code is
+not shown. This is what you would use for business documents where it
+would be inappropriate to show the code. In this case, if you wanted
+to present the first 10 integers, you could do so like this, using
+inline code that no one would know is code:
+
+The first 10 integers are `r combine_words(1:10)`.
 
 ```{r seq_no_echo, echo=FALSE, comment='##', collapse=FALSE}
 x <- 1:10
