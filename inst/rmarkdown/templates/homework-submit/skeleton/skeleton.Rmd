@@ -53,15 +53,22 @@ use this is up to you.
 
 That said, to use it effectively, you should adhere to two rules:
 
-1. R code appears *inside* chunks, that is in between these marks:
+1. R code appears *inside* chunks, that is in between the backticks
+   shown below:
 
 
-    ````markdown
-    `r ''````{r}
+    ````{verbatim}
+    
+    Here is an example of a chunk:
+    
+    ```{r}
     ## this will show the first six rows of mtcars
     head(mtcars)
     ```
     ````
+
+
+
 
     Unless you have a very specific reason, don't put anything not
     code-related inside an R chunk. It's fine to include comments that
