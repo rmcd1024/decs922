@@ -1,14 +1,20 @@
-decs922
+decs922 R package
 ================
 Robert McDonald
 
-This is a small package for the class Data Exploration, DECS-922, at the
-[Kellogg School of Management](https://www.kellogg.northwestern.edu/).
-The package currently contains
+This is a package of odds and ends originally created for the class Data
+Exploration, DECS-922, at the [Kellogg School of
+Management](https://www.kellogg.northwestern.edu/). The package
+currently contains
 
 -   templates to produce slides and homework assignments; upon package
     installation these are automatically available from RStudio’s
     `rmarkdown` templates list. These are a work in progress
+
+-   a chunk engine, `soln_notes`, which allows you insert optional text
+    within a standalone chunk. When evaluated, the text will be rendered
+    in italic and preceded (by default) by `Solution notes`. The
+    implementation is functional but buggy.
 
 -   the function `colorkey`, which assists with finding an appropriate
     colorname as defined by R. For example, to find a version of
@@ -16,6 +22,11 @@ The package currently contains
 
     ``` r
     library(decs922)
+    ```
+
+        ## Loading soln_notes chunk engine
+
+    ``` r
     colorkey(colortext = 'orange', excludetext = 'red')
     ```
 
@@ -54,7 +65,19 @@ The package currently contains
     translate_datestr('%Y-%M-%d')
     ```
 
-        ##   abbrevs category                                 description
+        ##   abbrevs category                           short_description
         ## 1      %d      day Day of the month as decimal number (01-31).
         ## 2      %M     time           Minute as decimal number (00-59).
         ## 3      %Y     year                          Year with century.
+
+-   `wordle_assist`, which finds 5-letter words that match positional
+    inclusions (positive named vector specifying position) and
+    exclusions (negative named vector specifying positions. Relies on
+    the length-5 words in the [`words`
+    package](https://CRAN.R-project.org/package=words)
+
+    ``` r
+    wordle_assist(no = 'areuntilcump', yes = list(s = c(1, -4), h = 2, o = 3))
+    ```
+
+        ## [1] "shogs" "shojo" "shook" "shoos" "shows" "showy"

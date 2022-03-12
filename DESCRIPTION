@@ -1,14 +1,16 @@
 Package: decs922
 Type: Package
-Title: DECS-922 Miscellany
+Title: Miscellaneous functions for a course originally designated "DECS-922"
 Version: 0.1.1
 Author: Robert McDonald
 Maintainer: Robert McDonald <rmcd1024@gmail.com>
-Description: Miscellaneous functions as well as Rmarkdown file templates for creating class slides and homework submissions.
+Description: Miscellaneous functions as well as Rmarkdown file templates for creating class slides and homework submissions. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
 Suggests: 
-    testthat
+    testthat,words
 Imports: knitr
+Depends: 
+    R (>= 2.10)

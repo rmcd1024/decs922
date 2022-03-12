@@ -23,6 +23,7 @@
 #'     \emph{excluded} from the list created by filtering on
 #'     \code{colortext}. 
 #' @usage colorkey(colortext, excludetext)
+#'
 #' 
 #' @examples
 #' \dontrun{

@@ -1,17 +1,21 @@
 ---
-title: decs922
+title: decs922 R package
 author: Robert McDonald
 output: github_document
 ---
 
-This is a small package for the class Data Exploration, DECS-922, at
-the [Kellogg School of
+This is a package of odds and ends originally created for the class
+Data Exploration, DECS-922, at the [Kellogg School of
 Management](https://www.kellogg.northwestern.edu/). The package
-currently contains 
+currently contains
 
 * templates to produce slides and homework assignments; upon package
   installation these are automatically available from RStudio's
   `rmarkdown` templates list. These are a work in progress
+* a chunk engine, `soln_notes`, which allows you insert optional text
+  within a standalone chunk. When evaluated, the text will be rendered
+  in italic and preceded (by default) by `Solution notes`. The
+  implementation is functional but buggy.
 * the function `colorkey`, which assists with finding an appropriate
   colorname as defined by R. For example, to find a version of
   "orange" which does not contain "red" in the color name, do this:
@@ -36,6 +40,14 @@ currently contains
   ```{r}
   translate_datestr('%Y-%M-%d')
   ```
+* `wordle_assist`, which finds 5-letter words that match positional
+  inclusions (positive named vector specifying position) and
+  exclusions (negative named vector specifying positions. Relies on
+  the length-5 words in the [`words` package](https://CRAN.R-project.org/package=words)
+  ```{r}
+  wordle_assist(no = 'areuntilcump', yes = list(s = c(1, -4), h = 2, o = 3))
+  ```
+
 
 
 
