@@ -10,3 +10,6 @@ data-raw/*
 make_readme.sh
 R/data.R
 README.html
+.*[~]
+Rplots.pdf
+.[#]*[#]

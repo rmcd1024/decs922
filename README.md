@@ -1,45 +1,48 @@
 decs922 R package
 ================
-Robert McDonald
 
 This is a package of odds and ends originally created for the class Data
-Exploration, DECS-922, at the [Kellogg School of
-Management](https://www.kellogg.northwestern.edu/). The package
-currently contains
+Exploration, DECS-922, now DECS-461, at the [Kellogg School of
+Management](https://www.kellogg.northwestern.edu/).
 
--   templates to produce slides and homework assignments; upon package
-    installation these are automatically available from RStudio’s
-    `rmarkdown` templates list. These are a work in progress
+# Document production
 
--   a chunk engine, `soln_notes`, which allows you insert optional text
-    within a standalone chunk. When evaluated, the text will be rendered
-    in italic and preceded (by default) by `Solution notes`. The
-    implementation is functional but buggy.
+-   Templates to perform routine setup steps to produce beamer slides
+    and pdf homework assignments. Upon package installation these become
+    automatically available from RStudio’s `rmarkdown` templates list,
+    as templates named “`decs922 Beamer presentation`” and
+    “`decs922   homework submissions`”.
+-   A `knitr` chunk engine, `soln_notes`, which allows you to insert
+    optional text within a standalone chunk with the engine
+    `soln_notes`. When evaluated, the text will be rendered in italic
+    and (by default) preceded by `Solution notes:`. The goal is to make
+    it easier to create homework solutions. The implementation is
+    currently functional but buggy.
+-   **`nbsp`** which takes a string as input and returns the string with
+    spaces replaced by non-breaking spaces.
 
--   the function `colorkey`, which assists with finding an appropriate
-    colorname as defined by R. For example, to find a version of
-    “orange” which does not contain “red” in the color name, do this:
+# Utility functions
+
+-   **`translate_datestr`** parses a string for POSIX date codes and
+    returns documentation for the codes (taken from `?strftime`).
 
     ``` r
-    library(decs922)
+    decs922::translate_datestr('%Y-%M-%d')
     ```
 
-        ## Loading soln_notes chunk engine
+        ##   abbrevs category                           short_description
+        ## 1      %d      day Day of the month as decimal number (01-31).
+        ## 2      %M     time           Minute as decimal number (00-59).
+        ## 3      %Y     year                          Year with century.
+
+-   **`data_summary`** reports for a data set the number of
+    observations, number of missing values, the class of each variable,
+    and various summary statistics. I view this as pedagogical, as there
+    are *many* similar functions available, such as `summary`,
+    `psych::describe`, etc. Using the built-in dataset `iris`:
 
     ``` r
-    colorkey(colortext = 'orange', excludetext = 'red')
-    ```
-
-    <img src="README_files/figure-gfm/unnamed-chunk-1-1.png" width="70%" />
-
--   the function `data_summary`, which reports for a data set the number
-    of observations, number of missing values, the class of each
-    variable, and various summary statistics. Note that there are many
-    similar functions available, such as `summary`, `psych::describe`,
-    etc. For example, using the built-in dataset `iris`:
-
-    ``` r
-    data_summary(iris)
+    decs922::data_summary(iris)
     ```
 
         ##              Sepal.Length Sepal.Width Petal.Length Petal.Width Species
@@ -57,27 +60,25 @@ currently contains
         ## 95% quantile        7.255         3.8          6.1         2.3    <NA>
         ## Maximum               7.9         4.4          6.9         2.5    <NA>
 
--   the function `translate_datestr`, which parses a string for POSIX
-    date codes and returns documentation for the codes (taken from
-    `?strftime`).
-
-    ``` r
-    translate_datestr('%Y-%M-%d')
-    ```
-
-        ##   abbrevs category                           short_description
-        ## 1      %d      day Day of the month as decimal number (01-31).
-        ## 2      %M     time           Minute as decimal number (00-59).
-        ## 3      %Y     year                          Year with century.
-
--   `wordle_assist`, which finds 5-letter words that match positional
-    inclusions (positive named vector specifying position) and
-    exclusions (negative named vector specifying positions. Relies on
-    the length-5 words in the [`words`
+-   **`wordle_assist`** finds 5-letter words that match positional
+    inclusions (a vector named with the letter, with positive values
+    specifying confirmed positions and negative values specifying
+    positional exclusions). The function matches against the length-5
+    words in the [`words`
     package](https://CRAN.R-project.org/package=words)
 
     ``` r
-    wordle_assist(no = 'areuntilcump', yes = list(s = c(1, -4), h = 2, o = 3))
+    decs922::wordle_assist(no = 'areuntilcump', yes = list(s = c(1, -4), h = 2, o = 3))
     ```
 
         ## [1] "shogs" "shojo" "shook" "shoos" "shows" "showy"
+
+-   **`colorkey`** given a regex, returns matching values from
+    `colors()`. For example, to find a version of “orange” which does
+    not contain “red” in the color name:
+
+    ``` r
+    decs922::colorkey(colortext = 'orange', excludetext = 'red')
+    ```
+
+    <img src="README_files/figure-gfm/unnamed-chunk-4-1.png" width="70%" />
