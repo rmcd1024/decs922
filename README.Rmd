@@ -39,6 +39,7 @@ Management](https://www.kellogg.northwestern.edu/).
   as `summary`, `psych::describe`, etc.  Using the
   built-in dataset `iris`:
   
+  
   ```{r}
   decs922::data_summary(iris)
   ```
