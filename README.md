@@ -5,6 +5,8 @@ This is a package of odds and ends originally created for the class Data
 Exploration, DECS-922, now DECS-461, at the [Kellogg School of
 Management](https://www.kellogg.northwestern.edu/).
 
+    ## Loading soln_notes chunk engine
+
 # Document production
 
 -   Templates to perform routine setup steps to produce beamer slides
@@ -12,12 +14,19 @@ Management](https://www.kellogg.northwestern.edu/).
     automatically available from RStudio’s `rmarkdown` templates list,
     as templates named “`decs922 Beamer presentation`” and
     “`decs922   homework submissions`”.
+
+    Note that the `decs922 homework submission` template contains a
+    mini-tutorial concerning aspects of producing a document with
+    markdown, including examples of cross-referencing of tables and
+    figures.
+
 -   A `knitr` chunk engine, `soln_notes`, which allows you to insert
     optional text within a standalone chunk with the engine
     `soln_notes`. When evaluated, the text will be rendered in italic
     and (by default) preceded by `Solution notes:`. The goal is to make
     it easier to create homework solutions. The implementation is
     currently functional but buggy.
+
 -   **`nbsp`** which takes a string as input and returns the string with
     spaces replaced by non-breaking spaces.
 
@@ -27,7 +36,7 @@ Management](https://www.kellogg.northwestern.edu/).
     returns documentation for the codes (taken from `?strftime`).
 
     ``` r
-    decs922::translate_datestr('%Y-%M-%d')
+    translate_datestr('%Y-%M-%d')
     ```
 
         ##   abbrevs category                           short_description
@@ -42,7 +51,7 @@ Management](https://www.kellogg.northwestern.edu/).
     `psych::describe`, etc. Using the built-in dataset `iris`:
 
     ``` r
-    decs922::data_summary(iris)
+    data_summary(iris)
     ```
 
         ##              Sepal.Length Sepal.Width Petal.Length Petal.Width Species
@@ -68,7 +77,7 @@ Management](https://www.kellogg.northwestern.edu/).
     package](https://CRAN.R-project.org/package=words)
 
     ``` r
-    decs922::wordle_assist(no = 'areuntilcump', yes = list(s = c(1, -4), h = 2, o = 3))
+    wordle_assist(no = 'areuntilcump', yes = list(s = c(1, -4), h = 2, o = 3))
     ```
 
         ## [1] "shogs" "shojo" "shook" "shoos" "shows" "showy"
@@ -78,7 +87,7 @@ Management](https://www.kellogg.northwestern.edu/).
     not contain “red” in the color name:
 
     ``` r
-    decs922::colorkey(colortext = 'orange', excludetext = 'red')
+    colorkey(colortext = 'orange', excludetext = 'red')
     ```
 
-    <img src="README_files/figure-gfm/unnamed-chunk-4-1.png" width="70%" />
+    <img src="README_files/figure-gfm/unnamed-chunk-5-1.png" width="70%" />

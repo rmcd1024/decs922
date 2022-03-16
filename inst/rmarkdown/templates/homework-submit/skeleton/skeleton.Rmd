@@ -10,6 +10,8 @@ output:
     toc: yes
     number_section: true
     df_print: paged
+geometry: 1.5in
+fontsize: 11pt    
 ---
 
 ```{r, include=FALSE}
@@ -46,10 +48,11 @@ urlcolor: 'red'
 # What is this document?
 
 This Rmarkdown template is intended to help you get started using
-Rmarkdown. Once you have examined it, feel free to delete or change
-anything. To assist you in getting started, it provides reasonable
-chunk options and loads packages you are likely to need. But how you
-use this is up to you.
+Rmarkdown. Please take a look at it --- there is a lot of information
+about how rmarkdown works. Once you have examined it, feel free to
+delete or change anything. To assist you in getting started, it
+provides reasonable chunk options and loads packages you are likely to
+need. But how you use this is up to you.
 
 That said, to use it effectively, you should adhere to two rules:
 
@@ -70,11 +73,12 @@ That said, to use it effectively, you should adhere to two rules:
 
 
 
-    Unless you have a very specific reason, don't put anything not
-    code-related inside an R chunk. It's fine to include comments that
-    document how the code works, but this is often not necessary.
+    Unless you have a very specific reason, don't put anything that is
+    not code-related inside an R chunk. It's fine to include comments
+    that document how the code works, but this is often not necessary.
 
-1. Ordinary text appears outside those marks, and is formatted using markdown
+1. Ordinary text appears outside of chunks (that is, outside those
+   marks), and is formatted using markdown syntax.
 
 
 Once you have customized this to your liking, you can save it to  use
@@ -155,9 +159,89 @@ x
 
 You also include R output directly in the text, like this: `r# paste0(x, collapse=' and ')`, or using `knitr::combine_words`: `r combine_words(x)`.
 
+# Figures and Tables
 
-## Part A
+If you have primarily created documents using Microsoft Office in the
+past, you are accustomed to tinkering with your document to make it
+look exactly the way you want. Although it is not obvious at first,
+***markdown represents an entirely different philosophy to document
+creation.*** In markdown, you decide on the function of text, and you
+allow the software to format as appropriate. You can see examples in
+this document, where different level headings are created by prefacing
+the text with different numbers of hash marks (`#` vs `##` for
+example). Once you become accustomed to using markdown, there is a
+good chance you will conclude that formatting in Word is a waste of
+your time. You should be focusing on writing, and allowing the
+software to do the formatting. With Word, it is difficult to do
+that. However, that's the purpose of  markdown: focus on content, not
+appearance, and the appearance will nevertheless be high quality.
 
-## Part B
+A prime example of this difference is the treatment of tables and
+figures, which create difficulties because they are blocky chunks in
+your text, and the question is where should they go? In all good
+document processing software, tables and figures can either have a
+fixed location or they can float. If fixed, this creates problems with
+page formatting (what if a long table is at the bottom of a page?) If
+they float, it means that the formatting algorithm will try to figure
+out where to put them to adhere to conventional typographic
+standards. Professional compositors (e.g. in formatting a book)
+extensively use floating tables and figures. LaTeX (which is used to
+create pdf output from rmarkdown) handles floats professionally, and
+it is often used to publish books. Here is the general idea in rmarkdown.
 
-# Problem
+* If you give a table a caption, it will float. If you don't give it a
+caption, it will be whereever it appears in the flow of the
+document. 
+* Figures  float by default
+
+You might ask: if figures and tables float, how can a reader find the
+appropriate figure or table? The answer is that you use
+*automatic cross-references*, where you refer to a table and a number
+is automatically generated for the table caption and for your
+reference. You can do the same with figures although the mechanics are
+a little different. The ["official" discussion of cross-referencing in
+the rmarkdown
+cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/cross-ref.html)
+will show you how to do something
+different. It's up to you. The following examples will illustrate what
+I do.
+
+## Figures
+
+This example illustrates how I cross-reference figures. (The
+alternative is to use the `bookdown::pdf_document2` format and this
+will provide a slightly different mechanism.) Be sure to look at the
+Rmd file, as I have hidden the R chunks that generate the figure and
+the tables.
+
+
+Figure \ref{fig:fantasticfig} will appear somewhere.
+
+```{r, fig.cap='This is a figure\\label{fig:fantasticfig}', echo=FALSE}
+ggplot(mtcars, aes(x=wt, y=mpg, color=as.factor(gear))) +
+    geom_point()
+```
+
+## Tables
+
+There are 3 tables in this section, one for each number of gears. They
+are tables for 3 gears (Table \ref{tab:g3}), 4 gears (Table
+\ref{tab:g4}) and 5 gears (Table  \ref{tab:g5}). As an exercise, you
+can create all 3 tables within a loop. Note that they are all
+auto-numbered: if you insert a preceding table, the table numbers will
+increase appropriately.
+
+If you decide you don't like the appearance of something (for example
+the size of a graph or the appearance of a table), my strong advice is
+to *wait until you are finished creating content before you start to
+tinker with appearance*. You are wasting your time to do otherwise.
+
+```{r, echo=FALSE}
+kable(filter(mtcars, gear == 3), booktabs = TRUE,
+      caption = 'Cars with 3 gears', label = 'g3')
+kable(filter(mtcars, gear ==  4), booktabs = TRUE,
+      caption = 'Cars with 4 gears', label = 'g4')
+kable(filter(mtcars, gear == 5), booktabs = TRUE,
+      caption = 'Cars with 5 gears', label = 'g5')
+```
+
