@@ -69,18 +69,24 @@ Management](https://www.kellogg.northwestern.edu/).
         ## 95% quantile        7.255         3.8          6.1         2.3    <NA>
         ## Maximum               7.9         4.4          6.9         2.5    <NA>
 
--   **`wordle_assist`** finds 5-letter words that match positional
-    inclusions (a vector named with the letter, with positive values
-    specifying confirmed positions and negative values specifying
-    positional exclusions). The function matches against the length-5
-    words in the [`words`
-    package](https://CRAN.R-project.org/package=words)
+-   **`wordle_assist`** finds 5-letter words that match against excluded
+    letters and positional included letters (a vector named with the
+    letter, with positive values specifying confirmed positions and
+    negative values specifying positional exclusions). The function
+    matches against the length-5 words in the [`words`
+    package](https://CRAN.R-project.org/package=words). For example,
+    suppose you have played `arose`, `until` and `chump`, and you’ve
+    learned that there is an `s` in position 1 but not in position 4;
+    there is an `h` in position 2; and there is an `o` in position 3.
+    Enter that information like this:
 
     ``` r
     wordle_assist(no = 'areuntilcump', yes = list(s = c(1, -4), h = 2, o = 3))
     ```
 
         ## [1] "shogs" "shojo" "shook" "shoos" "shows" "showy"
+
+    The function returns the remaining possible words.
 
 -   **`colorkey`** given a regex, returns matching values from
     `colors()`. For example, to find a version of “orange” which does
