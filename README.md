@@ -88,6 +88,15 @@ Management](https://www.kellogg.northwestern.edu/).
 
     The function returns the remaining possible words.
 
+-   **`words_subset`** given 1 to 5 letters, return 5-letter words
+    containing those letters, in any order.
+
+    ``` r
+    words_subset('cawk')
+    ```
+
+        ## [1] "wacke" "wacko" "wacks" "wacky" "whack" "wrack"
+
 -   **`colorkey`** given a regex, returns matching values from
     `colors()`. For example, to find a version of “orange” which does
     not contain “red” in the color name:
@@ -96,4 +105,4 @@ Management](https://www.kellogg.northwestern.edu/).
     colorkey(colortext = 'orange', excludetext = 'red')
     ```
 
-    <img src="README_files/figure-gfm/unnamed-chunk-5-1.png" width="70%" />
+    <img src="README_files/figure-gfm/unnamed-chunk-6-1.png" width="70%" />
