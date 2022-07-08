@@ -1,10 +1,10 @@
-#' @title words-subset
+#' @title words_subset
 #'
-#' @description \code{words-subset} returns 5-letter words that
+#' @description \code{words_subset} returns 5-letter words that
 #'     contain specified letters. Error if more than 5 letters are
 #'     supplied
 #'
-#' @name words-subset
+#' @name words_subset
 #'
 #' @return Returns a vector of 5-letter words meeting supplied match
 #'     criteria
