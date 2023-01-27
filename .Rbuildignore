@@ -1,7 +1,7 @@
 todo.md
 R/italic_block_engine.R
 ^.*\.Rproj$
-^\.Rproj\.user$
+^.Rproj.user/
 README.Rmd
 README_files/
 tips_and_tricks.Rmd

@@ -1,7 +1,7 @@
 Package: decs922
 Type: Package
 Title: Miscellaneous functions for a course originally designated "DECS-922"
-Version: 0.1.1
+Version: 0.1.2
 Author: Robert McDonald
 Maintainer: Robert McDonald <rmcd1024@gmail.com>
 Description: Miscellaneous functions as well as Rmarkdown file templates for creating class slides and homework submissions. 

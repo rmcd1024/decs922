@@ -2,6 +2,8 @@
 #'
 #' @description \code{wordle-assist} returns 5-letter words that match
 #'     included and excluded letter patterns.
+#' @description \code{wordle_sub) returns 5-letter words that contain
+#'     the letters specified in `ltrs` and without the letters in `no`
 #'
 #' @name wordle-assist
 #'
@@ -16,6 +18,9 @@
 #'     incorrect positions are negative integers. For example if "a"
 #'     is in the second position and not in the fourth, and "y" is in
 #'     the fifth, specify \code{yes = list(a = c(2, -4), y = 5)}
+#' @param ltrs a character string containing letters that appear in
+#'     the word. If more than 5 letters are supplied, will return the
+#'     empty set
 #'
 #' @param words vector of admissible possible words. By default, uses
 #'     the length-5 words from the `words` package.
@@ -23,7 +28,7 @@
 #' @examples
 #'
 #' wordle_assist(no = 'seuntilmp', yes = list(a = -1, r = -2, o = -3, c = -1, h = -2))
-#'
+#' wordle_sub(ltrs = 'soar', no='fghbxwkl')
 #'
 
 
@@ -61,3 +66,17 @@ wordle_assist <- function(no = NULL, yes = NULL, words = words5) {
 }
 
 
+#' @export
+wordle_sub <- function(ltrs = 'arose', no = ' ', words = words5) {
+    testmode <- FALSE
+    if (testmode) {
+        ltrs <- 'arose'
+        no <- ''
+    }
+    possibles <- words
+    for (i in strsplit(ltrs, split = '')[[1]]) {
+        possibles <- grep(i, possibles,  value = TRUE)
+    }
+    possibles <- grep(paste0('[', no, ']'),  possibles, invert = TRUE, value = TRUE)
+    possibles
+}
