@@ -88,11 +88,11 @@ Management](https://www.kellogg.northwestern.edu/).
 
     The function returns the remaining possible words.
 
--   **`words_subset`** given 1 to 5 letters, return 5-letter words
+-   **`wordle_sub`** given 1 to 5 letters, return 5-letter words
     containing those letters, in any order.
 
     ``` r
-    words_subset('cawk')
+    wordle_sub(ltrs='cawk')
     ```
 
         ## [1] "wacke" "wacko" "wacks" "wacky" "whack" "wrack"

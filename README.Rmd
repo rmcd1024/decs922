@@ -63,10 +63,10 @@ library(decs922)
   wordle_assist(no = 'areuntilcump', yes = list(s = c(1, -4), h = 2, o = 3))
   ```
   The function returns the remaining possible words.
-* **`words_subset`** given 1 to 5 letters, return 5-letter words containing
+* **`wordle_sub`** given 1 to 5 letters, return 5-letter words containing
   those letters, in any order.
   ```{r}
-  words_subset('cawk')
+  wordle_sub(ltrs='cawk')
   ```
 
 * **`colorkey`** given a regex, returns matching values from
