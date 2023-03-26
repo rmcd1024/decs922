@@ -1,0 +1,247 @@
+---
+##
+## Customize this section with output formats
+##
+output:
+  pdf_document:
+    toc: yes
+    number_sections: yes
+  html_document:
+    toc: yes
+    number_section: true
+    df_print: paged
+geometry: 1.5in
+fontsize: 11pt    
+---
+
+```{r, include=FALSE}
+##
+## Customize this section with your name, course info, etc.
+##
+
+titlestring <- "Submission: Homework No. xxx"
+myname <- "My name"
+mydate <- format(Sys.Date(), '%B %d, %Y')
+mycourse <- "DECS-461: Data Exporation"
+##mycourse <- "FINC-435: MBAi Finance"
+##mycourse <- "FE-316: Topics in Financial Economics"
+myschool <- "Kellogg School of Management"
+myuniversity <- "Northwestern University"
+```
+
+---
+##
+## This chunk produces the titlepage and doc formatting
+##
+title: "`r titlestring`"
+subtitle: |
+   | `r mycourse`
+   | `r myschool`
+   | `r myuniversity`
+author: "`r myname`"
+date: "`r mydate`"
+## this allows you to customize margins in a pdf document
+geometry: 'top=1in,bottom=1in,left=1in,right=1in'
+urlcolor: 'red'
+---
+
+# What is this document?
+
+This Rmarkdown template is intended to help you get started using
+Rmarkdown. Please take a look at it --- there is a lot of information
+about how rmarkdown works. Once you have examined it, feel free to
+delete or change anything. To assist you in getting started, it
+provides reasonable chunk options and loads packages you are likely to
+need. But how you use this is up to you.
+
+That said, to use it effectively, you should adhere to two rules:
+
+1. R code appears *inside* chunks, that is in between the backticks
+   shown below:
+
+
+    ````{verbatim}
+    
+    Here is an example of a chunk:
+    
+    ```{r}
+    ## this will show the first six rows of mtcars
+    head(mtcars)
+    ```
+    ````
+
+
+
+
+    Unless you have a very specific reason, don't put anything that is
+    not code-related inside an R chunk. It's fine to include comments
+    that document how the code works, but this is often not necessary.
+
+1. Ordinary text appears outside of chunks (that is, outside those
+   marks), and is formatted using markdown syntax.
+
+
+Once you have customized this to your liking, you can save it to  use
+as a template for future homework assignments.
+
+ 
+```{r setup, message=FALSE, echo=FALSE}
+library(data.table)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+opts_chunk$set(echo = TRUE     ## Show R code chunks
+               ,collapse = TRUE ## Show code and results together
+               ,message = FALSE ## Do not include R "messages" in the output
+               ,warning = FALSE ## Do not include R "warnings" in the output
+               ,error = FALSE   ## Do not include R "errors" in the output
+               ,comment = NA   ## Do not preface R output with anything (default is "##")
+)
+```
+
+Please take a moment to compare  the pdf and Rmd versions of this
+document. If you're not yet comfortable with Rmarkdown, you will
+learn a lot from this comparison. Ask if you have questions.
+
+
+# Getting started
+
+## References
+
+This is the ultimate authority on chunk options:
+https://yihui.org/knitr/options/ 
+
+To learn more about Rmarkdown, [RStudio has a
+tutorial](https://rmarkdown.rstudio.com/lesson-1.html), and the
+authors of Rmarkdown have written a book, which is [available
+online](https://bookdown.org/yihui/rmarkdown/).
+
+## Effects of chunk options
+
+### Default options in this document
+
+This shows you the effect of the default chunk options above. With
+`collapse=FALSE` the code and the output run together, and with
+`comment=NA` there is no marker in front of the output.
+
+```{r seq1}
+x <- 1:10
+x
+```
+
+### Delineate output
+
+We can override the global chunk options by specifying chunk-specific
+options. Here we set `comment='##'`, so that the string `##` precedes
+R output,^[This would have been the default had I not set `comment=NA` in the `setup` chunk above.] and `collapse=FALSE`, so the code and output have different
+backgrounds and are further apart on the page.
+
+```{r seq2, echo=TRUE, comment='##', collapse=FALSE}
+x <- 1:10
+x
+```
+
+### Show only the output, without code
+
+Here we have the same chunk options as before, except for
+`echo=FALSE`. In this case, you can see the output, but the code is
+not shown. This is what you would use for business documents where it
+would be inappropriate to show the code. In this case, if you wanted
+to present the first 10 integers, you could do so like this, using
+inline code that no one would know is code:
+
+The first 10 integers are `r combine_words(1:10)`.
+
+```{r seq_no_echo, echo=FALSE, comment='##', collapse=FALSE}
+x <- 1:10
+x
+```
+
+You also include R output directly in the text, like this: `r# paste0(x, collapse=' and ')`, or using `knitr::combine_words`: `r combine_words(x)`.
+
+# Figures and Tables
+
+If you have primarily created documents using Microsoft Office in the
+past, you are accustomed to tinkering with your document to make it
+look exactly the way you want. Although it is not obvious at first,
+***markdown represents an entirely different philosophy to document
+creation.*** In markdown, you decide on the function of text, and you
+allow the software to format as appropriate. You can see examples in
+this document, where different level headings are created by prefacing
+the text with different numbers of hash marks (`#` vs `##` for
+example). Once you become accustomed to using markdown, there is a
+good chance you will conclude that formatting in Word is a waste of
+your time. You should be focusing on writing, and allowing the
+software to do the formatting. With Word, it is difficult to do
+that. However, that's the purpose of  markdown: focus on content, not
+appearance, and the appearance will nevertheless be high quality.
+
+A prime example of this difference is the treatment of tables and
+figures, which create difficulties because they are blocky chunks in
+your text, and the question is where should they go? In all good
+document processing software, tables and figures can either have a
+fixed location or they can float. If fixed, this creates problems with
+page formatting (what if a long table is at the bottom of a page?) If
+they float, it means that the formatting algorithm will try to figure
+out where to put them to adhere to conventional typographic
+standards. Professional compositors (e.g. in formatting a book)
+extensively use floating tables and figures. LaTeX (which is used to
+create pdf output from rmarkdown) handles floats professionally, and
+it is often used to publish books. Here is the general idea in rmarkdown.
+
+* If you give a table a caption, it will float. If you don't give it a
+caption, it will be whereever it appears in the flow of the
+document. 
+* Figures  float by default
+
+You might ask: if figures and tables float, how can a reader find the
+appropriate figure or table? The answer is that you use
+*automatic cross-references*, where you refer to a table and a number
+is automatically generated for the table caption and for your
+reference. You can do the same with figures although the mechanics are
+a little different. The ["official" discussion of cross-referencing in
+the rmarkdown
+cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/cross-ref.html)
+will show you how to do something
+different. It's up to you. The following examples will illustrate what
+I do.
+
+## Figures
+
+This example illustrates how I cross-reference figures. (The
+alternative is to use the `bookdown::pdf_document2` format and this
+will provide a slightly different mechanism.) Be sure to look at the
+Rmd file, as I have hidden the R chunks that generate the figure and
+the tables.
+
+
+Figure \ref{fig:fantasticfig} will appear somewhere.
+
+```{r, fig.cap='This is a figure\\label{fig:fantasticfig}', echo=FALSE}
+ggplot(mtcars, aes(x=wt, y=mpg, color=as.factor(gear))) +
+    geom_point()
+```
+
+## Tables
+
+There are 3 tables in this section, one for each number of gears. They
+are tables for 3 gears (Table \ref{tab:g3}), 4 gears (Table
+\ref{tab:g4}) and 5 gears (Table  \ref{tab:g5}). As an exercise, you
+can create all 3 tables within a loop. Note that they are all
+auto-numbered: if you insert a preceding table, the table numbers will
+increase appropriately.
+
+If you decide you don't like the appearance of something (for example
+the size of a graph or the appearance of a table), my strong advice is
+to *wait until you are finished creating content before you start to
+tinker with appearance*. You are wasting your time to do otherwise.
+
+```{r, echo=FALSE}
+kable(filter(mtcars, gear == 3), booktabs = TRUE,
+      caption = 'Cars with 3 gears', label = 'g3')
+kable(filter(mtcars, gear ==  4), booktabs = TRUE,
+      caption = 'Cars with 4 gears', label = 'g4')
+kable(filter(mtcars, gear == 5), booktabs = TRUE,
+      caption = 'Cars with 5 gears', label = 'g5')
+```
+
